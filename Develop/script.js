@@ -1,5 +1,5 @@
 // Assignment code here
-  let password = 'Hello There';
+  let password = [];
   let upperCasePrompt = "";
   let specialPrompt = "";
   let numberPrompt = "";
@@ -13,9 +13,20 @@
     'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z',
     ];
 
+// I got this function from stackoverflow here is the link: 
+// https://stackoverflow.com/questions/2450954/how-to-randomize-shuffle-a-javascript-array 
+  
+function shuffleArray(array) {
+  for (var i = array.length - 1; i > 0; i--) {
+    var j = Math.floor(Math.random() * (i + 1));
+    var temp = array[i];
+      array[i] = array[j];
+      array[j] = temp;
+  }
+}
+
   function lengthPrompt() {
     length =  window.prompt("How many characters long would you like your password to be?");
-
     if(length >= 8 && length <= 128) {
       console.log(length); 
     }
@@ -86,10 +97,16 @@
     }
   }
 
-  function generatePassword() {
+  function makePassword() {
     prompts();
-    console.log(characters);
+    shuffleArray(characters);
+    password = characters;
+    password.length = length;
+    password = password.join("");
+  }
 
+  function generatePassword() {
+    makePassword();
     return password;
   }
 
@@ -102,7 +119,6 @@ function writePassword() {
   var passwordText = document.querySelector("#password");
 
   passwordText.value = password;
-
 }
 
 // Add event listener to generate button
